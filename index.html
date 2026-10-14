@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>The Show That Never Happened | Interactive Mystery</title>
+        <!-- Simple CSS files organized by purpose. -->
+        <link href="css/base.css" rel="stylesheet"/>
+        <link href="css/scenes.css" rel="stylesheet"/>
+        <link href="css/panels.css" rel="stylesheet"/>
+        <link href="css/responsive.css" rel="stylesheet"/>
+        <link href="css/interactions.css" rel="stylesheet"/>
+        <link href="css/desktop-layout.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <!-- INTRO: shown before the player enters the theatre. -->
+        <section aria-labelledby="startTitle" class="start-screen" id="startScreen">
+            <img alt="" aria-hidden="true" class="start-art" src="images/entrance.webp"/>
+            <div class="start-content">
+                <p class="start-label">THEATRE ARCHIVE  /  CASE NO. 01</p>
+                <p class="start-date">OCTOBER 12, 2026</p>
+                <h2 id="startTitle">The Show<br/>That Never<br/><em>Happened.</em></h2>
+                <div class="start-rule"></div>
+                <p class="start-description">You have been asked to settle one line in the theatre's history. The final public show was cancelled. But someone left records dated that same night.</p>
+                <p class="start-question">Six rooms. Eight records. What should the archive remember?</p>
+                <button class="start-button" onclick="beginInvestigation()" type="button">Begin Investigation <span aria-hidden="true">→</span></button>
+                <p class="start-hint">AN INTERACTIVE ARCHIVE MYSTERY</p>
+            </div>
+        </section>
+        <!-- GLOBAL HEADER: stays available during the investigation. -->
+        <header class="site-header" hidden="" id="siteHeader">
+            <div class="site-brand">
+                <span class="brand-label">THEATRE ARCHIVE · CASE 01</span>
+                <h1>The Show That Never Happened</h1>
+            </div>
+            <nav aria-label="Main navigation" class="main-nav">
+                <button onclick="openPanel('map')" type="button">Theatre Map</button>
+                <button onclick="openPanel('evidence')" type="button">Evidence <span id="evidenceCount">0/8</span></button>
+                <button onclick="openPanel('hint')" type="button">Need a Hint?</button>
+                <button onclick="openPanel('help')" type="button">Help</button>
+                <button onclick="restartInvestigation()" type="button">Restart</button>
+            </nav>
+        </header>
+        <main hidden="" id="game">
+            <!-- CASE JOURNAL: a changing objective, not a solution or walkthrough. -->
+            <aside aria-live="polite" class="case-journal" id="caseJournal">
+                <span>ARCHIVIST'S FIELD NOTES</span>
+                <p id="caseJournalText">Start with the official record, then investigate anything that does not fit. You may visit the rooms in any order.</p>
+            </aside>
+            <!-- SCENE 1: THE ENTRANCE -->
+            <section aria-labelledby="title-entrance" class="scene active" id="scene-entrance">
+                <div class="room-layout">
+                    <div class="room-info" id="room-info-entrance">
+                        <div class="scene-heading">
+                            <p class="scene-number">SCENE 01 / 06 · OCTOBER 12, 2026</p>
+                            <h2 id="title-entrance">The Entrance</h2>
+                            <p>Three days after the cancelled farewell show, the building is waiting to be sealed. Your task is not to find a suspect. It is to decide whether the official record tells the whole story of October 9. Begin with the notice left at the entrance.</p>
+                        </div>
+                        <p class="scene-objective"><strong>QUESTION 01</strong> Does the cancellation notice tell the whole story?</p>
+                        <div class="scene-footer">
+                            <p id="entranceStatus"><strong>First task:</strong> Inspect the official notice, then explore rooms that might hold a different kind of record.</p>
+                            <button onclick="openPanel('map')" type="button">Open Theatre Map →</button>
+                        </div>
+                    </div>
+                    <div class="scene-art">
+                        <img alt="An empty Art Deco theatre entrance with a poster and archive boxes" src="images/entrance.webp"/>
+                        <button class="hotspot entrance-notice" id="hotspot-entrance-0" onclick="inspectEvidence('cancellation')" type="button">Inspect notice</button>
+                        <button class="hotspot entrance-archives" id="hotspot-entrance-1" onclick="openPanel('help')" type="button">Read assignment</button>
+                        <button class="hotspot entrance-door" id="hotspot-entrance-2" onclick="openPanel('map')" type="button">Explore theatre</button>
+                    </div>
+                    <p class="scene-image-caption">CLICK THE GOLD MARKERS TO INSPECT THE SCENE</p>
+                </div>
+            </section>
+            <!-- SCENE 2: THE BOX OFFICE -->
+            <section aria-labelledby="title-boxoffice" class="scene" hidden="" id="scene-boxoffice">
+                <div class="room-layout">
+                    <div class="room-info" id="room-info-boxoffice">
+                        <div class="scene-heading">
+                            <p class="scene-number">SCENE 02 / 06 · PUBLIC RECORDS</p>
+                            <h2 id="title-boxoffice">The Box Office</h2>
+                            <p>The box office has not been cleared since the refund notice was issued. An open register lies beside a drawer of paper ticket stock. The cancelled public performance should leave a straightforward financial record. Compare what was sold with what was physically kept.</p>
+                        </div>
+                        <p class="scene-objective"><strong>QUESTION 02</strong> Does a physical ticket always mean a paying audience?</p>
+                        <div class="scene-footer">
+                            <p id="boxofficeStatus">Investigate the ledger and the drawer.</p>
+                            <button onclick="openPanel('map')" type="button">Back to Theatre Map</button>
+                        </div>
+                    </div>
+                    <div class="scene-art">
+                        <img alt="An old ticket office with an open ledger and a wooden drawer" src="images/Box Office.webp"/>
+                        <button class="hotspot box-ledger" id="hotspot-boxoffice-0" onclick="inspectEvidence('refunds')" type="button">Read refund register</button>
+                        <button class="hotspot box-drawer" id="hotspot-boxoffice-1" onclick="inspectEvidence('ticket')" type="button">Open ticket drawer</button>
+                    </div>
+                    <p class="scene-image-caption">CLICK THE GOLD MARKERS TO INSPECT THE SCENE</p>
+                </div>
+            </section>
+            <!-- SCENE 3: BACKSTAGE -->
+            <section aria-labelledby="title-backstage" class="scene" hidden="" id="scene-backstage">
+                <div class="room-layout">
+                    <div class="room-info" id="room-info-backstage">
+                        <div class="scene-heading">
+                            <p class="scene-number">SCENE 03 / 06 · BEHIND THE CURTAIN</p>
+                            <h2 id="title-backstage">Backstage</h2>
+                            <p>Backstage feels paused rather than abandoned. A small set of props was prepared despite the cancellation. Crew records, a service file and a brief handwritten note survive. They establish that someone had work to do here, but none explains whether it was maintenance, rehearsal or something less routine.</p>
+                        </div>
+                        <p class="scene-objective"><strong>QUESTION 03</strong> Who arranged the space, and for what purpose?</p>
+                        <div class="scene-footer">
+                            <p id="backstageStatus">The backstage records may explain who used the stage.</p>
+                            <button onclick="openPanel('map')" type="button">Back to Theatre Map</button>
+                        </div>
+                    </div>
+                    <div class="scene-art">
+                        <img alt="A backstage work area with staff notices, stage props and a workbench" src="images/backstage.webp"/>
+                        <button class="hotspot backstage-roster" id="hotspot-backstage-0" onclick="inspectEvidence('employee')" type="button">Staff records</button>
+                        <button class="hotspot backstage-props" id="hotspot-backstage-1" onclick="inspectEvidence('props')" type="button">Prop inventory</button>
+                        <button class="hotspot backstage-note" id="hotspot-backstage-2" onclick="inspectEvidence('note')" type="button">Preparation note</button>
+                    </div>
+                    <p class="scene-image-caption">CLICK THE GOLD MARKERS TO INSPECT THE SCENE</p>
+                </div>
+            </section>
+            <!-- SCENE 4: CONTROL BOOTH -->
+            <section aria-labelledby="title-control" class="scene" hidden="" id="scene-control">
+                <div class="room-layout">
+                    <div class="room-info" id="room-info-control">
+                        <div class="scene-heading">
+                            <p class="scene-number">SCENE 04 / 06 · TECHNICAL RECORDS</p>
+                            <h2 id="title-control">Control Booth</h2>
+                            <p>The control desk should have been idle after a public cancellation. Instead, four time-stamped cues remain on its clipboard. A technical test could explain some of them. But one cue was directed away from the stage and toward the audience. Consider what this changes about the case.</p>
+                        </div>
+                        <p class="scene-objective"><strong>QUESTION 04</strong> Was this only a technical test?</p>
+                        <div class="scene-footer">
+                            <button onclick="openPanel('map')" type="button">Back to Theatre Map</button>
+                        </div>
+                        <div class="cue-preview">
+                            <h3>Lighting Preview</h3>
+                            <p>Choose a time to inspect the surviving cue notes.</p>
+                            <div class="button-row">
+                                <button onclick="previewCue('7:56')" type="button">7:56</button>
+                                <button onclick="previewCue('8:03')" type="button">8:03</button>
+                                <button onclick="previewCue('8:09')" type="button">8:09</button>
+                                <button onclick="previewCue('8:17')" type="button">8:17</button>
+                            </div>
+                            <p aria-live="polite" id="cuePreviewText">Select a cue to see what it controlled.</p>
+                        </div>
+                    </div>
+                    <div class="scene-art">
+                        <img alt="The theatre lighting control booth with a cue log and an observation window" src="images/control booth.webp"/>
+                        <button class="hotspot control-log" id="hotspot-control-0" onclick="inspectEvidence('lightinglog')" type="button">Inspect cue log</button>
+                    </div>
+                    <p class="scene-image-caption">CLICK THE GOLD MARKERS TO INSPECT THE SCENE</p>
+                </div>
+            </section>
+            <!-- SCENE 5: MAIN STAGE; unlocked actions are controlled by stage.js. -->
+            <section aria-labelledby="title-stage" class="scene" hidden="" id="scene-stage">
+                <div class="scene-heading stage-heading">
+                    <p class="scene-number">SCENE 05 / 06 · RECONSTRUCTION</p>
+                    <h2 id="title-stage">The Main Stage</h2>
+                    <p>Rebuild the evidence. Discover what the records cannot explain.</p>
+                </div>
+                <p class="scene-objective stage-objective"><strong>QUESTION 05</strong> What can the physical sequence prove, and what remains missing?</p>
+                <div class="scene-art stage-art" id="stageArt">
+                    <img alt="The empty theatre stage before reconstruction" id="stageImage" src="images/main stage.webp"/>
+                </div>
+                <div class="stage-controls">
+                    <h3>STAGE RECONSTRUCTION</h3>
+                    <p aria-live="polite" id="stageStatus">Establish the two key evidence connections on the Investigation Board to begin.</p>
+                    <div class="stage-readiness" id="stageReadiness">
+                        <div class="readiness-item">
+                            <div>
+                                <strong>TICKET + REFUND LEDGER</strong>
+                                <p id="readiness-financial">Checking evidence…</p>
+                            </div>
+                            <button onclick="guideFinancial()" type="button">Find next step →</button>
+                        </div>
+                        <div class="readiness-item">
+                            <div>
+                                <strong>PROPS + LIGHTING LOG</strong>
+                                <p id="readiness-staging">Checking evidence…</p>
+                            </div>
+                            <button onclick="guideStaging()" type="button">Find next step →</button>
+                        </div>
+                    </div>
+                    <button id="stageStart" onclick="startReconstruction()" type="button">Check Evidence &amp; Begin Reconstruction</button>
+                    <div class="button-row" hidden="" id="stageActions">
+                        <button id="stage-a12" onclick="stageAction('a12')" type="button">Audience special · 8:09</button>
+                        <button id="stage-lamp" onclick="stageAction('lamp')" type="button">Freestanding work lamp</button>
+                        <button id="stage-blackout" onclick="stageAction('blackout')" type="button">Final blackout · 8:17</button>
+                        <button id="stage-stool" onclick="stageAction('stool')" type="button">Wooden stool</button>
+                        <button id="stage-opening" onclick="stageAction('opening')" type="button">Opening wash · 8:03</button>
+                    </div>
+                    <button hidden="" id="inspectSeatButton" onclick="inspectSeat()" type="button">Inspect Seat A12</button>
+                </div>
+                <div class="scene-reveal" hidden="" id="reconstructedFarewell">
+                    <p class="scene-number">ARTISTIC RECONSTRUCTION · BASED ON ARCHIVED EVIDENCE</p>
+                    <h3>The Final Bow</h3>
+                    <img alt="An illustrated reconstruction of Jonah watching the theatre staff's farewell" src="images/scene5-reconstructed-performance.webp"/>
+                    <p>Only after finding the programme does the reconstruction take on its full meaning: the staff gave a final bow for the person usually working out of sight.</p>
+                    <button onclick="showFinalBow()" type="button">Replay The Final Bow →</button>
+                </div>
+                <div class="scene-footer stage-footer">
+                    <button onclick="openPanel('map')" type="button">Back to Theatre Map</button>
+                </div>
+                <details class="stage-background">
+                    <summary>Why reconstruct the stage?</summary>
+                    <p>The public show never opened, yet the prop sheet and cue log agree on a sequence of actions. Rebuild only what the documents support. This is an illustrated reconstruction, not a recovered video. It can show where the lights went, but not by itself explain who was watching or why.</p>
+                </details>
+            </section>
+            <!-- SCENE 6: FINAL CURTAIN -->
+            <section aria-labelledby="title-final" class="scene" hidden="" id="scene-final">
+                <div class="scene-heading">
+                    <p class="scene-number">SCENE 06 / 06 · ARCHIVE CONCLUSION</p>
+                    <h2 id="title-final">The Final Curtain</h2>
+                    <p>Your reconstruction is complete, but an archive entry needs more than a dramatic picture. Separate the public ticket record from what the internal documents establish. Your report must explain both what happened and why one specific seat mattered.</p>
+                </div>
+                <p class="scene-objective"><strong>QUESTION 06</strong> What belongs in the permanent historical record?</p>
+                <div class="report-art">
+                    <img alt="An archival desk with a blank historical report" src="images/Final Archive.webp"/>
+                    <div class="report-form" id="reportForm">
+                        <h3>Final Investigation Report</h3>
+                        <div class="report-step" id="reportStep1">
+                            <p><strong>1 / 2</strong> Which event record is supported?</p>
+                            <button onclick="submitReport('public')" type="button">The public ticketed show went ahead.</button>
+                            <button onclick="submitReport('none')" type="button">The theatre remained entirely unused.</button>
+                            <button onclick="submitReport('unlisted')" type="button">An unlisted event occurred after cancellation.</button>
+                        </div>
+                        <div class="report-step" hidden="" id="reportStep2">
+                            <p><strong>2 / 2</strong> What explains the reserved seat?</p>
+                            <button onclick="submitPurpose('rehearsal')" type="button">A seat reserved for a routine rehearsal.</button>
+                            <button onclick="submitPurpose('inspection')" type="button">A seat for a technical inspection.</button>
+                            <button onclick="submitPurpose('tribute')" type="button">A private farewell for Jonah Bell.</button>
+                        </div>
+                        <p aria-live="polite" id="reportFeedback">Use the evidence to complete both parts of the record.</p>
+                    </div>
+                </div>
+                <div class="ending-screen" hidden="" id="finalEnding">
+                    <img alt="A final warm spotlight illuminates the empty A12 seat" src="images/ending-last-light.webp"/>
+                    <h3>Case Closed</h3>
+                    <p>The public show was cancelled. The final curtain still fell.</p>
+                    <button onclick="restartInvestigation()" type="button">Start Again</button>
+                </div>
+            </section>
+        </main>
+        <!-- Interactive floorplan: all six buttons sit over their real map rooms. -->
+        <section aria-label="Theatre map" class="overlay-panel" hidden="" id="panel-map">
+            <div class="panel-box map-panel">
+                <button class="close-button" onclick="closePanel()" type="button">Close ×</button>
+                <h2>Theatre Map</h2>
+                <p>Select a labelled room directly on the plan. Visit the first five in any order.</p>
+                <p class="map-mobile-hint">On smaller screens, swipe the floor plan left or right to reach each room.</p>
+                <div aria-label="Scrollable interactive theatre floor plan" class="map-scroll" tabindex="0">
+                    <div class="map-canvas">
+                        <img alt="Top-down plan: backstage upper-left, stage top-centre, control booth behind seating, box office lower-left, entrance lower-centre, archive upper-right" src="images/Theatre Map.webp"/>
+                        <button class="map-pin map-backstage" id="mapBackstage" onclick="goToScene('backstage')">03 · Backstage</button>
+                        <button class="map-pin map-stage" id="mapStage" onclick="goToScene('stage')">05 · Main Stage</button>
+                        <button class="map-pin map-control" id="mapControl" onclick="goToScene('control')">04 · Control Booth</button>
+                        <button class="map-pin map-boxoffice" id="mapBoxoffice" onclick="goToScene('boxoffice')">02 · Box Office</button>
+                        <button class="map-pin map-entrance" id="mapEntrance" onclick="goToScene('entrance')">01 · Entrance</button>
+                        <button class="map-pin map-archive" disabled="" id="mapFinalButton" onclick="goToScene('final')">06 · Archive (Locked)</button>
+                    </div>
+                </div>
+                <p class="map-caption">Gold = not visited · Bronze = entered · Green = key evidence found · Archive unlocks after The Final Bow.</p>
+            </div>
+        </section>
+        <!-- EVIDENCE BOARD: buttons become available as evidence is found. -->
+        <section aria-label="Evidence board" class="overlay-panel" hidden="" id="panel-evidence">
+            <div class="panel-box evidence-board">
+                <button class="close-button" onclick="closePanel()" type="button">Close ×</button>
+                <h2>Investigation Board</h2>
+                <p id="boardProgress">0 of 8 records discovered</p>
+                <p>Review the clues you found, then connect the records that explain each other. You do not need every record to finish.</p>
+                <div class="board-view-tabs">
+                    <button id="boardTab-records" onclick="showBoardTab('records')" type="button">Collected Evidence</button>
+                    <button id="boardTab-connections" onclick="showBoardTab('connections')" type="button">Evidence Connections</button>
+                </div>
+                <div class="board-content" id="boardRecords">
+                    <img alt="Empty archival investigation board" src="images/ui-evidence-board.webp"/>
+                    <div class="evidence-list">
+                        <button disabled="" id="board-cancellation" onclick="inspectEvidence('cancellation')">Cancellation Notice</button>
+                        <button disabled="" id="board-refunds" onclick="inspectEvidence('refunds')">Refund Register</button>
+                        <button disabled="" id="board-ticket" onclick="inspectEvidence('ticket')">A12 Ticket</button>
+                        <button disabled="" id="board-employee" onclick="inspectEvidence('employee')">Employee Record</button>
+                        <button disabled="" id="board-props" onclick="inspectEvidence('props')">Prop Inventory</button>
+                        <button disabled="" id="board-note" onclick="inspectEvidence('note')">Preparation Note</button>
+                        <button disabled="" id="board-lightinglog" onclick="inspectEvidence('lightinglog')">Lighting Cue Log</button>
+                        <button disabled="" id="board-programme" onclick="inspectEvidence('programme')">Final Programme</button>
+                    </div>
+                </div>
+                <!-- Connection puzzles: the player interprets evidence instead of collecting it mechanically. -->
+                <div class="connections-area" hidden="" id="connectionsArea">
+                    <p class="section-kicker">EVIDENCE CONNECTIONS</p>
+                    <h3>What can the records establish together?</h3>
+                    <p id="connectionProgress">0 / 2 essential connections established</p>
+                    <div class="connection-tabs">
+                        <button id="connectFinancial" onclick="selectConnection('financial')" type="button">Ticket ↔ Refund Ledger <span id="financialCheck"></span></button>
+                        <button id="connectStaging" onclick="selectConnection('staging')" type="button">Props ↔ Lighting <span id="stagingCheck"></span></button>
+                        <button id="connectSeat" onclick="selectConnection('seat')" type="button">Preparation Note ↔ Lighting <span id="seatCheck"></span></button>
+                    </div>
+                    <div class="connection-workspace" id="connectionWorkspace">
+                        <h3 id="connectionTitle">Choose two related records</h3>
+                        <p id="connectionQuestion">Compare their meaning, not just their dates. The first two connections are required for reconstruction; the third is optional context.</p>
+                        <div class="connection-answers" hidden="" id="connectionAnswers">
+                            <button id="connectionAnswerA" onclick="answerConnection('a')" type="button"></button>
+                            <button id="connectionAnswerB" onclick="answerConnection('b')" type="button"></button>
+                            <button id="connectionAnswerC" onclick="answerConnection('c')" type="button"></button>
+                        </div>
+                        <p aria-live="polite" id="connectionFeedback">Select a pair above to begin.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- HELP: instructions do not spoil the final mystery. -->
+        <section aria-label="Help" class="overlay-panel" hidden="" id="panel-help">
+            <div class="panel-box">
+                <button class="close-button" onclick="closePanel()" type="button">Close ×</button>
+                <h2>How to Investigate</h2>
+                <p>You are an archive researcher deciding what belongs in the official record of October 9, 2026. A cancelled public event does not necessarily mean the building was unused.</p>
+                <ul>
+                    <li>Use the Theatre Map to travel directly to a room. Gold means unexplored; green means its key evidence was discovered.</li>
+                    <li>Inspect objects and read both sides of any document that can be turned over.</li>
+                    <li>Use Evidence Connections on the Investigation Board to explain two pairs of records. The third comparison and several records are optional.</li>
+                    <li>Turn the A12 ticket over. A document's back may change its meaning.</li>
+                    <li>Reconstruct the stage by interpreting the prop inventory and lighting cues, not by following a numbered button list.</li>
+                    <li>Use Need a Hint? for up to three levels of help. Hints never delete your progress.</li>
+                    <li>Reconstruction demonstrates a sequence; the recovered programme establishes its meaning. Restart clears your progress.</li>
+                </ul>
+            </div>
+        </section>
+        <!-- Progressive, spoiler-sensitive hints. -->
+        <section aria-label="Investigation hints" class="overlay-panel" hidden="" id="panel-hint">
+            <div class="panel-box hint-panel">
+                <button class="close-button" onclick="closePanel()" type="button">Close ×</button>
+                <p class="section-kicker">ARCHIVIST SUPPORT</p>
+                <h2>Need a Hint?</h2>
+                <p>Choose how much guidance you want. Each level becomes more specific.</p>
+                <div class="hint-paper">
+                    <p id="hintTopicLabel">Current objective</p>
+                    <p aria-live="polite" id="hintText">Your first hint will appear here.</p>
+                </div>
+                <p id="hintCount">Hint 0 of 3</p>
+                <div class="hint-actions">
+                    <button onclick="revealHint()" type="button">Reveal Next Hint</button>
+                    <button onclick="closePanel()" type="button">Return to Investigation</button>
+                </div>
+            </div>
+        </section>
+        <!-- EVIDENCE VIEWER: only one document is displayed at a time. -->
+        <section aria-label="Evidence inspection" class="overlay-panel" hidden="" id="evidenceViewer">
+            <div class="panel-box viewer-box">
+                <button class="close-button" onclick="closeEvidence()" type="button">Close ×</button>
+                <h2 id="evidenceTitle">Evidence</h2>
+                <article class="document" hidden="" id="doc-cancellation">
+                    <div class="document-page notice-page">
+                        <img alt="Framed theatre cancellation notice" src="images/evidence-cancellation.webp"/>
+                        <div class="paper-content">
+                            <div class="notice-heading">
+                                <h3>FINAL PERFORMANCE<br/>CANCELLED</h3>
+                                <p>OCTOBER 6, 2026</p>
+                            </div>
+                            <p class="notice-statement">The scheduled public farewell performance on October 9 will not proceed due to funding constraints.</p>
+                            <p class="notice-refund">ALL PURCHASED TICKETS<br/>HAVE BEEN REFUNDED</p>
+                            <p class="notice-signature">THEATRE MANAGEMENT</p>
+                        </div>
+                    </div>
+                    <aside class="document-tools">
+                        <p class="section-kicker">ARCHIVE TRANSCRIPTION</p>
+                        <p class="transcript-text">Reading document…</p>
+                        <p class="evidence-summary">The dated notice is official. The cancelled event was public, but it does not mention internal activity.</p>
+                    </aside>
+                </article>
+                <article class="document" hidden="" id="doc-refunds">
+                    <div class="document-page ledger-page">
+                        <img alt="An open ticket refund ledger" src="images/evidence-refunds.webp"/>
+                        <div class="paper-content">
+                            <div class="ledger-left">
+                                <h3>REFUND REGISTER</h3>
+                                <p>OCT 09 · PUBLIC SHOW</p>
+                                <table>
+                                    <tr>
+                                        <th>SEAT</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                    <tr>
+                                        <td>A09</td>
+                                        <td>REFUNDED</td>
+                                    </tr>
+                                    <tr>
+                                        <td>B14</td>
+                                        <td>REFUNDED</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C03</td>
+                                        <td>REFUNDED</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="ledger-right">
+                                <h3>BOX OFFICE TOTAL</h3>
+                                <p>Public show</p>
+                                <p>All tickets refunded</p>
+                                <strong>PAID ADMISSIONS: 0</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="document-tools">
+                        <p class="section-kicker">ARCHIVE TRANSCRIPTION</p>
+                        <p class="transcript-text">Reading document…</p>
+                        <p class="evidence-summary">The financial account is consistent with the cancellation. Would an internal event appear here?</p>
+                    </aside>
+                </article>
+                <article class="document" hidden="" id="doc-ticket">
+                    <div class="document-page ticket-page ticket-front-page" id="ticketFront">
+                        <img alt="Front of a vintage A12 theatre ticket" src="images/evidence-ticket-front.webp"/>
+                        <div class="paper-content">
+                            <div class="ticket-upper">
+                                <h3>FAREWELL EVENING</h3>
+                                <p>OCT 09 · 8:00 PM</p>
+                            </div>
+                            <div class="ticket-lower">
+                                <strong>SEAT A12</strong>
+                                <p>HOUSE COPY</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="document-page ticket-page ticket-back-page" hidden="" id="ticketBack">
+                        <img alt="Reverse of the same theatre ticket" src="images/evidence-ticket-back.webp"/>
+                        <div class="paper-content">
+                            <h3>COMPLIMENTARY<br/>ADMISSION</h3>
+                            <p>NOT FOR SALE</p>
+                            <p>HOUSE AUTHORIZATION</p>
+                        </div>
+                    </div>
+                    <aside class="document-tools">
+                        <p class="section-kicker">ARCHIVE TRANSCRIPTION</p>
+                        <p class="transcript-text">Reading document…</p>
+                        <button onclick="flipTicket()" type="button">Turn Ticket Over</button>
+                        <p class="evidence-summary">A punched complimentary stub could bypass the paid ledger. But who authorized it, and why?</p>
+                    </aside>
+                </article>
+                <article class="document" hidden="" id="doc-employee">
+                    <div class="document-page employee-page">
+                        <img alt="Theatre personnel record with a photograph frame" src="images/evidence-employee.webp"/>
+                        <div class="paper-content">
+                            <h3>PERSONNEL RECORD</h3>
+                            <div class="employee-data">
+                                <p><strong>JONAH BELL</strong></p>
+                                <p>Evening Custodian</p>
+                                <p>Joined · 1986</p>
+                                <p>Evening Service Team</p>
+                            </div>
+                            <img alt="Illustrated portrait of Jonah Bell" class="employee-portrait" src="images/evidence-jonah-portrait.webp"/>
+                            <div class="employee-summary">
+                                <p>DEPARTMENT · BACKSTAGE</p>
+                                <p>STATUS · ON STAFF ROSTER</p>
+                                <p>LAST SIGN-IN · OCT 09, 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="document-tools">
+                        <p class="section-kicker">ARCHIVE TRANSCRIPTION</p>
+                        <p class="transcript-text">Reading document…</p>
+                        <p class="evidence-summary">Jonah Bell has worked backstage since 1986. His file records no stage role or ticketed performance.</p>
+                    </aside>
+                </article>
+                <article class="document" hidden="" id="doc-props">
+                    <div class="document-page props-page">
+                        <img alt="Stage prop checklist on a wooden clipboard" src="images/evidence-props.webp"/>
+                        <div class="paper-content">
+                            <h3>PROP INVENTORY<br/><small>OCTOBER 9</small></h3>
+                            <div class="props-entries">
+                                <p><b>✓</b><span class="prop-label">Wooden stool</span><span class="prop-qty">01</span></p>
+                                <p><b>✓</b><span class="prop-label">Work lamp</span><span class="prop-qty">01</span></p>
+                                <p><b>✓</b><span class="prop-label">Stage prepared</span><span class="prop-qty">YES</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="document-tools">
+                        <p class="section-kicker">ARCHIVE TRANSCRIPTION</p>
+                        <p class="transcript-text">Reading document…</p>
+                        <p class="evidence-summary">A stool and work lamp were prepared on October 9. They could belong to a rehearsal, a test, or a small event.</p>
+                    </aside>
+                </article>
+                <article class="document" hidden="" id="doc-note">
+                    <div class="document-page note-page">
+                        <img alt="Handwritten preparation note on aged paper" src="images/evidence-note.webp"/>
+                        <div class="paper-content">
+                            <p>A12 — leave available<br/>for tonight.</p>
+                            <p>Keep the centre<br/>aisle clear.</p>
+                            <p>Stage ready<br/>before 8 PM.</p>
+                        </div>
+                    </div>
+                    <aside class="document-tools">
+                        <p class="section-kicker">ARCHIVE TRANSCRIPTION</p>
+                        <p class="transcript-text">Reading document…</p>
+                        <p class="evidence-summary">A12 was deliberately kept available after the public cancellation. The note gives no name or reason.</p>
+                    </aside>
+                </article>
+                <article class="document" hidden="" id="doc-lightinglog">
+                    <div class="document-page lighting-page">
+                        <img alt="Technical lighting cue log with three columns" src="images/evidence-lightinglog.webp"/>
+                        <div class="paper-content">
+                            <h3>LIGHTING CUES<br/><small>OCT 09</small></h3>
+                            <div class="cue-list">
+                                <p><span>7:56</span><span>Tech check</span><span>Stage</span></p>
+                                <p><span>8:03</span><span>Opening</span><span>Stage</span></p>
+                                <p><span>8:09</span><span>Spotlight</span><span>A12</span></p>
+                                <p><span>8:17</span><span>Blackout</span><span>All</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="document-tools">
+                        <p class="section-kicker">ARCHIVE TRANSCRIPTION</p>
+                        <p class="transcript-text">Reading document…</p>
+                        <p class="evidence-summary">Four cues were logged after cancellation. The 8:09 spotlight pointed into the audience rather than onto the stage.</p>
+                    </aside>
+                </article>
+                <article class="document" hidden="" id="doc-programme">
+                    <div class="document-page programme-cover-page" id="programmeCover">
+                        <img alt="Commemorative theatre programme cover" src="images/evidence-programme-cover.webp"/>
+                        <div class="paper-content">
+                            <p>OCTOBER 9, 2026</p>
+                            <h3>THE LAST<br/>LIGHT</h3>
+                            <p>STAFF EDITION</p>
+                            <p>HOUSE COPY · 01</p>
+                        </div>
+                    </div>
+                    <div class="document-page programme-inside-page" hidden="" id="programmeInside">
+                        <img alt="The two inner pages of the farewell programme" src="images/evidence-programme-inside.webp"/>
+                        <div class="paper-content">
+                            <div>
+                                <h3>THE LAST<br/>LIGHT</h3>
+                                <p>A private farewell<br/>by theatre staff.</p>
+                                <p>Guest: Jonah Bell</p>
+                            </div>
+                            <div>
+                                <p>After forty years behind the curtain, you are retiring. You made sure every seat was ready for someone else.</p>
+                                <p><strong>Tonight, this one is yours.</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="document-tools">
+                        <p class="section-kicker">ARCHIVE TRANSCRIPTION</p>
+                        <p class="transcript-text">Reading document…</p>
+                        <button onclick="flipProgramme()" type="button">Open / Close Programme</button>
+                        <p class="evidence-summary">The programme supplies the missing context: the event honoured Jonah Bell, whose usual place was behind the curtain.</p>
+                    </aside>
+                </article>
+            </div>
+        </section>
+        <!-- SEAT INSPECTION: becomes available after the stage reconstruction. -->
+        <section aria-label="Seat A12 inspection" class="overlay-panel" hidden="" id="seatViewer">
+            <div class="panel-box seat-box">
+                <button class="close-button" onclick="closeSeat()" type="button">Close ×</button>
+                <h2>Seat A12</h2>
+                <img alt="A programme resting on an empty burgundy theatre seat" class="panel-image" src="images/A12 Seat Close-up.webp"/>
+                <p>There is one more record. A programme lies where the audience special pointed.</p>
+                <button onclick="inspectEvidence('programme')" type="button">Inspect Programme</button>
+            </div>
+        </section>
+        <!-- Full-screen reconstruction is deliberately acknowledged before the final report. -->
+        <section aria-label="Reconstructed farewell" class="final-bow-overlay" hidden="" id="finalBowOverlay">
+            <div class="final-bow-content">
+                <p class="section-kicker">ARTISTIC RECONSTRUCTION · BASED ON ARCHIVED EVIDENCE</p>
+                <h2>The Final Bow</h2>
+                <img alt="Jonah Bell seated alone before three theatre staff on the stage, during their private final bow" src="images/scene5-reconstructed-performance.webp"/>
+                <p>For forty years, Jonah prepared this theatre for everyone else. On its final night, the staff prepared it for him.</p>
+                <button onclick="acknowledgeFinalBow()" type="button">Continue to the Final Report →</button>
+            </div>
+        </section>
+        <!-- JavaScript files are loaded in order, after the HTML. -->
+        <script src="js/state.js"></script>
+        <script src="js/navigation.js"></script>
+        <script src="js/evidence.js"></script>
+        <script src="js/connections.js"></script>
+        <script src="js/hints.js"></script>
+        <script src="js/stage.js"></script>
+        <script src="js/finale.js"></script>
+        <script src="js/report.js"></script>
+        <script src="js/interface.js"></script>
+    </body>
+</html>

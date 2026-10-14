@@ -1,0 +1,303 @@
+/* THE SHOW THAT NEVER HAPPENED - Global design */
+
+/* Colours: charcoal, burgundy, antique gold, ivory. */
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #141217;
+    color: #eee2ce;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.2;
+    font-weight: normal;
+}
+
+h1, h2, h3, p {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 23px;
+    margin-bottom: 13px;
+}
+
+p {
+    color: #d2c4b5;
+}
+
+button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    color: #f1e6d7;
+    background: #462432;
+    border: 1px solid #997149;
+    border-radius: 5px;
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+button:hover {
+    background: #673448;
+    border-color: #e0b875;
+}
+
+button:focus {
+    outline: 2px solid #ebc78b;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.44;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    background: #462432;
+    border-color: #997149;
+}
+
+img {
+    max-width: 100%;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 16px 5%;
+    background: #1e181e;
+    border-bottom: 1px solid #755736;
+    box-shadow: 0 5px 20px #08070b;
+}
+
+.brand-label, .scene-number {
+    display: block;
+    color: #d7af76;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.site-brand h1 {
+    margin: 3px 0 0;
+    font-size: 22px;
+    color: #fff3dc;
+    letter-spacing: 0.4px;
+}
+
+.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.main-nav button {
+    background: transparent;
+    border-color: #5d4541;
+    padding: 10px 14px;
+}
+
+.main-nav button:hover {
+    background: #492c36;
+}
+
+#evidenceCount {
+    margin-left: 5px;
+    color: #e1b974;
+    font-size: 11px;
+}
+
+#game {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 28px 32px 65px;
+}
+
+/* Small supporting typography and button groups. */
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.button-row button {
+    flex: 1 1 135px;
+}
+
+::selection {
+    background: #9e7153;
+    color: #ffffff;
+}
+
+/* The opening title card uses the same original entrance illustration. */
+
+.start-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 130;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    padding: 7vh 9%;
+    background: #141015;
+}
+
+.start-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .8;
+}
+
+.start-screen::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: linear-gradient(90deg, #120e15 0%, rgba(18,12,20,.96) 36%, rgba(18,12,20,.28) 100%);
+}
+
+.start-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 620px;
+}
+
+.start-label, .start-date, .start-hint {
+    color: #d6b584;
+    font-size: 12px;
+    letter-spacing: 2.8px;
+}
+
+.start-label {
+    margin-bottom: 45px;
+}
+
+.start-date {
+    margin-bottom: 17px;
+}
+
+.start-content h2 {
+    font-size: 76px;
+    color: #fff0d6;
+    line-height: 1.07;
+    letter-spacing: -1.5px;
+    text-shadow: 0 5px 20px #110b13;
+}
+
+.start-content h2 em {
+    color: #dcb783;
+    font-weight: normal;
+}
+
+.start-rule {
+    width: 100px;
+    height: 2px;
+    margin: 26px 0;
+    background: #be966a;
+}
+
+.start-description {
+    max-width: 490px;
+    font-size: 19px;
+    color: #f0decb;
+    line-height: 1.7;
+}
+
+.start-question {
+    color: #c9b4ac;
+    font-size: 14px;
+    margin: 14px 0 28px;
+}
+
+.start-button {
+    display: inline-block;
+    background: #b28a53;
+    border: 1px solid #ecc897;
+    color: #21151b;
+    padding: 17px 29px;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: .8px;
+}
+
+.start-button:hover {
+    color: #fff4dc;
+    background: #724153;
+}
+
+.start-button span {
+    margin-left: 23px;
+    font-size: 20px;
+}
+
+.start-hint {
+    margin-top: 42px;
+    font-size: 10px;
+}
+
+@media (max-width: 600px) {
+    .start-screen {
+        padding: 45px 7%;
+        align-items: center;
+    }
+
+    .start-art {
+        object-position: 58% center;
+    }
+
+    .start-screen::before {
+        background: linear-gradient(90deg, rgba(15,11,17,.96), rgba(16,11,17,.79));
+    }
+
+    .start-label {
+        margin-bottom: 34px;
+    }
+
+    .start-content h2 {
+        font-size: 48px;
+    }
+
+    .start-description {
+        font-size: 16px;
+    }
+
+    .start-button {
+        width: 100%;
+        text-align: center;
+    }
+}

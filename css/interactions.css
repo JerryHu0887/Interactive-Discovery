@@ -1,0 +1,271 @@
+/*  interpreted evidence, progressive help, map history and reveal. */
+
+.jump-compare {
+    display: inline-block;
+    margin: 0 0 14px;
+    padding: 8px 12px;
+    border: 1px solid #ba9561;
+    border-radius: 4px;
+    background: #3a2730;
+    color: #f1ddbb;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.jump-compare:hover {
+    background: #623744;
+}
+
+.connections-area {
+    margin-top: 21px;
+    padding: 24px;
+    background: #19161b;
+    border: 1px solid #9c7951;
+    border-radius: 6px;
+}
+
+.section-kicker {
+    color: #d9b482;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.connections-area h3 {
+    color: #eedabb;
+    margin-bottom: 5px;
+}
+
+#connectionProgress {
+    color: #ebd2a6;
+}
+
+.connection-tabs, .connection-answers, .hint-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.connection-tabs button {
+    flex: 1 1 220px;
+    background: #3d2830;
+    min-height: 49px;
+}
+
+.connection-tabs button.connection-done {
+    border-color: #a9c6a3;
+    background: #264535;
+    color: #ecf7df;
+}
+
+.connection-tabs span {
+    color: #a9dfaf;
+    font-size: 17px;
+}
+
+.connection-workspace {
+    margin-top: 19px;
+    padding: 21px;
+    border-left: 3px solid #d2a978;
+    background: #292229;
+}
+
+.connection-workspace h3 {
+    font-size: 20px;
+}
+
+.connection-workspace p {
+    font-size: 14px;
+}
+
+.connection-answers {
+    flex-direction: column;
+}
+
+.connection-answers button {
+    text-align: left;
+    padding: 14px;
+    background: #463039;
+}
+
+.connection-answers button:hover {
+    background: #704354;
+}
+
+#connectionFeedback {
+    margin: 14px 0 0;
+    color: #efd09b;
+    min-height: 22px;
+}
+
+.map-pin.map-visited {
+    background: rgba(32,74,56,.97);
+    border-color: #a0dbb0;
+    color: #f1ffe9;
+}
+
+.map-pin.map-visited::before {
+    content: '✓ ';
+    color: #c5ffb7;
+}
+
+.map-pin:focus, .hotspot:focus {
+    outline: 3px solid #f9d999;
+    outline-offset: 4px;
+}
+
+.hint-panel {
+    max-width: 650px;
+}
+
+.hint-paper {
+    padding: 24px;
+    margin: 20px 0;
+    background: #e6d7b9;
+    border: 5px double #b58d60;
+    border-radius: 3px;
+}
+
+.hint-paper p {
+    color: #322925;
+}
+
+#hintTopicLabel {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#hintText {
+    min-height: 66px;
+    font-family: Georgia, serif;
+    font-size: 19px;
+    line-height: 1.5;
+}
+
+.hint-actions button {
+    flex: 1 1 190px;
+}
+
+#hintCount {
+    color: #d7ba90;
+}
+
+.final-bow-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    overflow-y: auto;
+    background: #100d13;
+    padding: 28px 5vw;
+}
+
+.final-bow-content {
+    width: 100%;
+    max-width: 1160px;
+    margin: auto;
+    text-align: center;
+}
+
+.final-bow-content h2 {
+    margin: 5px 0 18px;
+    color: #fae6c6;
+    font-size: 46px;
+}
+
+.final-bow-content img {
+    display: block;
+    max-height: 66vh;
+    width: 100%;
+    object-fit: contain;
+    border: 1px solid #9e774e;
+    box-shadow: 0 14px 54px #000;
+}
+
+.final-bow-content > p:not(.section-kicker) {
+    max-width: 780px;
+    margin: 18px auto;
+    color: #e9d6b9;
+    font-family: Georgia, serif;
+    font-size: 21px;
+}
+
+.final-bow-content button {
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    background: #a47c47;
+    color: #1a1214;
+    font-weight: bold;
+}
+
+.stage-controls button.stage-done {
+    background: #2b4937;
+    border-color: #98c4a2;
+    color: #f0fbea;
+}
+
+#stageImage {
+    transition: filter .45s ease, opacity .4s ease;
+}
+
+.stage-amber #stageImage {
+    filter: sepia(.06) brightness(1.08);
+}
+
+.stage-audience #stageImage {
+    filter: brightness(.96);
+}
+
+.stage-blackout #stageImage {
+    filter: brightness(.74);
+}
+
+@media (max-width: 600px) {
+    .connections-area {
+        padding: 15px;
+    }
+
+    .connection-workspace {
+        padding: 13px;
+    }
+
+    .final-bow-overlay {
+        padding: 18px 12px;
+    }
+
+    .final-bow-content img {
+        max-height: 56vh;
+    }
+
+    .final-bow-content h2 {
+        font-size: 34px;
+    }
+
+    .final-bow-content > p:not(.section-kicker) {
+        font-size: 17px;
+    }
+
+    .final-bow-content button {
+        width: 100%;
+    }
+
+    .hint-paper {
+        padding: 18px;
+    }
+
+    #hintText {
+        font-size: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}

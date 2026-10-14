@@ -1,0 +1,287 @@
+/* Six scenes share one layout and a consistent visual style. */
+
+.scene-heading {
+    text-align: center;
+    padding: 22px 16px 25px;
+}
+
+.scene-heading h2 {
+    color: #f6e7cf;
+    margin: 11px 0;
+    font-size: 41px;
+}
+
+.scene-heading > p:last-child {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+.scene-art, .report-art {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #21191b;
+    border: 2px solid #85613e;
+    border-radius: 7px;
+    box-shadow: 0 12px 36px #070609;
+}
+
+.scene-art > img, .report-art > img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Percent positions refer to visible objects in each image. */
+
+.hotspot {
+    position: absolute;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    padding: 9px 13px;
+    border: 1px solid #e4c189;
+    border-radius: 22px;
+    background: rgba(25, 19, 24, 0.89);
+    color: #fff1d9;
+    font-size: 12px;
+    white-space: nowrap;
+    box-shadow: 0 2px 15px #090608;
+}
+
+.hotspot::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 8px;
+    background: #dbb27b;
+    border-radius: 50%;
+}
+
+.hotspot:hover {
+    background: #784452;
+    border-color: #ffda9d;
+}
+
+/* Entrance: notice at left, central door, boxes at right. */
+
+.entrance-notice {
+    left: 13%;
+    top: 32%;
+}
+
+.entrance-door {
+    left: 49%;
+    top: 52%;
+}
+
+.entrance-archives {
+    left: 83%;
+    top: 72%;
+}
+
+/* Box office: ledger at centre, drawer on the right. */
+
+.box-ledger {
+    left: 49%;
+    top: 73%;
+}
+
+.box-drawer {
+    left: 83%;
+    top: 52%;
+}
+
+/* Backstage: staff board at left; work area on the right. */
+
+.backstage-roster {
+    left: 18%;
+    top: 37%;
+}
+
+.backstage-props {
+    left: 74%;
+    top: 74%;
+}
+
+.backstage-note {
+    left: 84%;
+    top: 51%;
+}
+
+.control-log {
+    left: 84%;
+    top: 76%;
+}
+
+.scene-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 18px;
+    padding: 17px 21px;
+    background: #211b20;
+    border: 1px solid #4f3b35;
+    border-radius: 6px;
+}
+
+.scene-footer p {
+    flex: 1 1 320px;
+    margin: 0;
+    font-size: 14px;
+}
+
+.scene-footer strong {
+    color: #f4deb4;
+}
+
+/* Technical booth and reconstruction actions. */
+
+.cue-preview, .stage-controls, .scene-reveal {
+    margin-top: 18px;
+    padding: 23px;
+    background: #211b20;
+    border: 1px solid #68503c;
+    border-radius: 6px;
+}
+
+.cue-preview p, .stage-controls p {
+    font-size: 14px;
+}
+
+#cuePreviewText, #stageStatus {
+    margin: 17px 0 0;
+    padding: 11px 13px;
+    background: #151317;
+    border-left: 3px solid #b99663;
+    color: #ead4b1;
+}
+
+#stageStart {
+    margin-bottom: 16px;
+    background: #82542d;
+    border-color: #e2bd81;
+}
+
+#inspectSeatButton {
+    margin-top: 20px;
+}
+
+.scene-reveal {
+    text-align: center;
+}
+
+.scene-reveal img {
+    display: block;
+    width: 100%;
+    margin: 14px auto 18px;
+    border: 1px solid #947452;
+    border-radius: 4px;
+}
+
+/* Final report sits inside the blank archive paper. */
+
+.report-form {
+    position: absolute;
+    top: 28%;
+    left: 25%;
+    width: 53%;
+    height: 65%;
+    padding: 10px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 9px;
+    text-align: center;
+    color: #352521;
+}
+
+.report-form h3 {
+    margin: 0 0 4px;
+    font-size: 24px;
+}
+
+.report-form p {
+    color: #5e4634;
+    font-size: 13px;
+    margin: 0 0 5px;
+}
+
+.report-form button {
+    padding: 10px 9px;
+    font-size: 12px;
+}
+
+.ending-screen {
+    margin-top: 26px;
+    padding: 20px;
+    background: #201920;
+    border: 1px solid #846340;
+    text-align: center;
+}
+
+.ending-screen img {
+    display: block;
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+.ending-screen h3 {
+    color: #f1d1a1;
+    font-size: 34px;
+}
+
+/* Context stays readable outside the picture; it never covers a hotspot. */
+
+.case-journal {
+    padding: 15px 20px;
+    margin: 0 0 15px;
+    border: 1px solid #695039;
+    border-left: 4px solid #c9a272;
+    background: #262025;
+}
+
+.case-journal span {
+    color: #d8b987;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.case-journal p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #f0dfc7;
+}
+
+.scene-heading > p:last-child {
+    max-width: 750px;
+    line-height: 1.8;
+}
+
+.scene-objective {
+    max-width: 870px;
+    margin: 0 auto 16px;
+    text-align: center;
+    color: #ebd6b7;
+    font-size: 14px;
+}
+
+.scene-objective strong {
+    margin-right: 9px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #dba970;
+}
+
+.report-step {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.report-step p {
+    margin-bottom: 4px;
+}
