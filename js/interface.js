@@ -76,3 +76,26 @@ function refreshEvidenceTranscript() {
         }
     }
 }
+
+// Turn the background music on or off
+function toggleMusic() {
+    let music = document.getElementById('bgMusic');
+    let button = document.getElementById('musicButton');
+
+    music.volume = 0.2;
+
+    if (music.paused) {
+        music.play();
+        button.innerHTML = 'Music: On';
+    } else {
+        music.pause();
+        button.innerHTML = 'Music: Off';
+    }
+}
+
+function changeVolume() {
+    let music = document.getElementById('bgMusic');
+    let volume = document.getElementById('volumeControl');
+
+    music.volume = volume.value;
+}

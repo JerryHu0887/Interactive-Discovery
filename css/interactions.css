@@ -269,3 +269,23 @@
         transition-duration: .01ms !important;
     }
 }
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.main-nav label {
+    color: #f3e7c8;
+    font-size: 14px;
+    line-height: 1;
+}
+
+#volumeControl {
+    width: 110px;
+    height: 4px;
+    margin: 0 2px;
+    accent-color: #d6ad4f;
+    cursor: pointer;
+}
